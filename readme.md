@@ -1,4 +1,4 @@
-# Website for vizualisation for ADA-Orion
+# Website for vizualisation for ADA-Oreon
 
 To fire it up, run the following command from the visualization directory. 
 
