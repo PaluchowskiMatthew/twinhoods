@@ -111,7 +111,7 @@ quartiersZurich.addTo(mapZurich);
   };
 
   zurichInfo.update = function (props) {
-    this._div.innerHTML = '<h4>Quartier: </h4>' + (props ? '<b>' + props.Quartiername + '</b>' : 'Hoover over a quartier')
+    this._div.innerHTML = '<h4>Quartier: </h4>' + (props ? '<b>' + props.Quartiername + '</b>' : 'Click a quartier')
   }
 
   lausanneInfo.addTo(mapLausanne);
