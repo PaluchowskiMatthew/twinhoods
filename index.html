@@ -60,7 +60,10 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Twinhoods</h1>
+        <h1>Twinhoods
+          <br>
+          <small>Matching Lausanne's neighborhoods with similair counterparts in Zürich and vice-versa.</small>
+        </h1>
       </div>
     </div>
 
@@ -92,50 +95,123 @@
         </div>
       </div>
       <hr class="featurette-devider">
-      <div class="row featurette">
-        <div class="col-md-8">
+      <div class="row featurette vcenter_row">
+        <div class="col-sm-8">
           <h2 class="featurette-heading">Data aquisition</h2>
-        <p class="lead">In order to map the neighborhoods, we needed to get some data that were comparable across cities, that were geotagged, and openly available. We decided to make our prototype based on the localization of for instance resturants and other venues, landmarks and sport arenas. The gathering of this data prooved to be harder than expected, as our source was restricted in terms of number of results in an area and rate limitations. We tackled the problem by querying <a href src="http://developer.factual.com/">Factual Places API</a> in a uniform grid such that the number of queries were minimized, while still obtaining all places.</p>
+        <p class="lead">
+          In order to map the neighborhoods, we needed to get openly available
+          geotagged data which would be comparable across cities.
+          We decided to make our prototype based on the localization of
+          resturants, shops, landmarks and other venues. The gathering of this
+          data proved to be harder than expected, as our source was restricted
+          in terms of number of results in an area and rate limitations. We
+          tackled the problem by querying
+          <a href src="http://developer.factual.com/">Factual Places API</a>
+          in a uniform grid such that the number of queries were minimized,
+          while we still obtained all places. As a result we ended up scraping
+          <b>~13,500</b> locations for <b>Lausanne</b> and <b>~45,000</b> for <b>Zürich</b>.
+          Last but not least, we have programmed the crawler to walk the defined
+          area in a spiral fashion to make sure to retrieve the most important
+          areas first and set a prioritiy path in case of unexpected interruption.</p>
         </div>
-        <div class="col-md-4">
-          <img class="featurette-image img-responsive center-block" data-src="img/bigdata-512.png" alt="Data aquisition" src="img/bigdata-512.png">
+        <div class="col-sm-4">
+          <img class="featurette-image img-responsive center-block" data-src="" alt="Data aquisition" src="img/Handle-With-Care-256.png">
         </div>
       </div>
       <hr class="featurette-devider">
-      <div class="row featurette">
-        <div class="col-md-8">
+      <div class="row featurette vcenter_row">
+        <div class="col-sm-8">
           <h2 class="featurette-heading">Preprocessing</h2>
-          <p class="lead">After gathering the data, we had to assign each place to a neighborhood. As there are no publically available geodata on neighborhoods in Switzerland, we spent some time crawling the web for this information.
-            In the end we found custom google maps overlays, which after convertion we were able to use as geojson. We then had the limits of each neighborhood as geographical coordinates, and we could just map each 
-            venue to their neighborhood. The next steps consisted of finding good features for the model to base the predictions on, the details of this process can be found in a jupyter notebook at <a href="https://github.com/PaluchowskiMatthew/ADA-Orion/blob/master/Lausanne%20%26%20Zurich%20places.ipynb">github.com</a>
+          <p class="lead">
+            After gathering the data, we had to assign each place to a neighborhood.
+            As there are no publicly available geodata on neighborhoods in Switzerland,
+            we spent some time crawling the web for this information.
+            In the end we found custom google maps overlays, which after convertion
+            we were able to use as geojson. We then had the limits of each neighborhood
+            as geographical coordinates, and we could just map each
+            venue to their neighborhood. The next steps consisted of finding good
+            features for the model to base the predictions on, the details of this
+            process can be found in a jupyter notebook at
+            <a href="https://github.com/PaluchowskiMatthew/ADA-Orion/blob/master/Lausanne%20%26%20Zurich%20places.ipynb">github.com</a>
           </p>
         </div>
-        <div class="col-md-4">
-          <img class="featurette-image img-responsive center-block" data-src="" alt="Preprocessing" src="img/18_file_processing-512.png" data-holder-rendered="true">
+        <div class="col-sm-4">
+          <img class="featurette-image img-responsive center-block" data-src="" alt="Preprocessing" src="img/Mixer-256.png" data-holder-rendered="true">
         </div>
       </div>
       <hr class="featurette-devider">
-      <div class="row featurette space" style="display: flex; align-items: center">
-        <div class="col-md-8">
-          <h2 class="featurette-heading">Matching the neighborhoods</h2>
-          <p class="lead"> 
-            In order to find a best matching between a freely chosen neighborhood and its corresponding descriptor $\vec n_i^A$ from the origin city $A$ and a corresponding target neighborhood with descriptor $\vec n_j^B$ in the target city $B$ we will be mapping to the closest descriptor in the target city as follows:
-            $$ \| \vec n_i^A - \vec n_j^B \|^2 \leq  \| \vec n_i^A - \vec n_k^B \|^2  \quad \forall k \neq j $$
-            By expanding the above formula we can show that maximizing the dot product between neighborhood descriptors will actually result in the closest match for neighborhood $n_i$,
-            $$ (\vec n_i^A)^2 - 2 (\vec n_i^A)^T \vec n_j^B + (\vec n_j^B)^2  \leq  (\vec n_i^A)^2 - 2 (\vec n_i^A)^T \vec n_k^B + (\vec n_k^B)^2  $$
-            Since we have normalized the descriptor vectors above we have $ (\vec n_i^A)^2 = (\vec n_j^B)^2 = (\vec n_k^B)^2 = 1 \quad \forall i,j,k$ which leads to
-            $$ - 2 (\vec n_i^A)^T \vec n_j^B \leq - 2 (\vec n_i^A)^T \vec n_k^B  $$
-            Dividing the above inequation by $-2$ including the corresponding flip to the inequality sign results in
-            $$ (\vec n_i^A)^T \vec n_j^B \geq (\vec n_i^A)^T \vec n_k^B  $$
-            This shows that the closest neighborhood can be found be finding the maximal dot product between the chosen origin neighborhood descriptor and the set of target neighborhood descriptors $\vec n_j^B$.</p>
+      <div class="row featurette vcenter_row">
+        <div class="col-sm-8">
+          <h2 class="featurette-heading">Descriptors</h2>
+          <p class="lead">
+           In order to extract meaniningful and descriptive information for a
+           particular neighborhood, we have decided to use venue densities.
+           Since from the used Factual API, we had a selection of <b>467</b> different <b>venue
+           types</b> available, which can be found
+           <a href="http://developer.factual.com/working-with-categories/#taxonomy">here</a>.
+           We have created different descriptor vectors that can be selected
+           via radio button above (All Places, Landmarks, Fastfood, Travel, Sports).
+           These descriptor vectors consist of a normalized frequency analysis
+           of a set of described venue types within particular neighborhood.
+           These feature vectors are ultimately being compared in
+           order to find a best matching as described in the next section.
+          </p>
         </div>
-        <div class="col-md-4">
-          <img class="featurette-image img-responsive " style="vertical-align: middle;" data-src="" alt="Preprocessing" src="img/35_deep_learning_algorithm-512.png" data-holder-rendered="true">
+        <div class="col-sm-4">
+          <img class="featurette-image img-responsive center-block" data-src="" alt="Descriptors" src="img/Tag-256.png" data-holder-rendered="true">
+        </div>
+      </div>
+      <hr class="featurette-devider">
+      <div class="row featurette vcenter_row">
+        <div class="col-sm-8">
+          <h2 class="featurette-heading">Matching</h2>
+          <p class="lead">
+            We find a best matching between a freely chosen neighborhood
+            and its corresponding descriptor $\vec n_i^A$ from the origin city $A$
+            and a corresponding target neighborhood with descriptor $\vec n_j^B$
+            in the target city $B$ by mapping to the closest descriptor
+            in the target city as follows:
+            $$ \| \vec n_i^A - \vec n_j^B \|^2 \leq  \| \vec n_i^A - \vec n_k^B \|^2  \quad \forall k \neq j $$
+            By expanding the above formula we can show that maximizing the dot
+            product between neighborhood descriptors will actually result in the
+            closest match for neighborhood $n_i$,
+            $$ (\vec n_i^A)^2 - 2 (\vec n_i^A)^T \vec n_j^B + (\vec n_j^B)^2  \leq  (\vec n_i^A)^2 - 2 (\vec n_i^A)^T \vec n_k^B + (\vec n_k^B)^2  $$
+            Since we have normalized the descriptor vectors above we have
+            $ (\vec n_i^A)^2 = (\vec n_j^B)^2 = (\vec n_k^B)^2 = 1 \quad \forall i,j,k$ which leads to
+            $$ - 2 (\vec n_i^A)^T \vec n_j^B \leq - 2 (\vec n_i^A)^T \vec n_k^B  $$
+            Dividing the above inequation by $-2$ including the corresponding
+            flip to the inequality sign results in
+            $$ (\vec n_i^A)^T \vec n_j^B \geq (\vec n_i^A)^T \vec n_k^B  $$
+            This shows that the closest neighborhood can be found be finding
+            the maximal dot product between the chosen origin neighborhood
+            descriptor and the set of target neighborhood descriptors $\vec n_j^B$.</p>
+        </div>
+        <div class="col-sm-4">
+          <img class="featurette-image img-responsive" data-src="" alt="Matching" src="img/Node-256.png" data-holder-rendered="true">
+        </div>
+      </div>
+      <hr class="featurette-devider">
+      <div class="row featurette vcenter_row">
+        <div class="col-sm-8">
+          <h2 class="featurette-heading">Visualization</h2>
+          <p class="lead">
+            The final neighborhood mappings are subsequently visualized on their
+            respective communal defined polygons using
+            <a href="http://leafletjs.com/">leaflet</a> maps that have been
+            enhanced to provide the needed interactivity.
+          </p>
+        </div>
+        <div class="col-sm-4">
+          <img class="featurette-image img-responsive center-block" data-src="" alt="Visualization" src="img/Map-Location-256.png" data-holder-rendered="true">
         </div>
       </div>
 
       <footer>
-        <p>&copy; <a href="https://github.com/PaluchowskiMatthew/ADA-Orion">ADA-Orion</a> 2017</p>
+        <p>
+          <a href="https://github.com/aurlien">Kristian Aurlien</a>,
+          <a href="https://github.com/PaluchowskiMatthew">Mateusz Paluchowski</a> and
+          <a href="https://github.com/raccc">Christian Tresch</a> as
+          <a href="https://github.com/PaluchowskiMatthew/ADA-Orion">ADA-Orion</a> &copy; 2017</p>
       </footer>
     </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>

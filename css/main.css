@@ -29,6 +29,11 @@
     float: none;
 }
 
+.vcenter_row {
+  display: flex;
+  align-items: center;
+}
+
 input[type="radio"]{
   margin: 0 10px 0 10px;
 }
@@ -36,5 +41,3 @@ input[type="radio"]{
 .space {
     margin: 30px 0 30px 0;
 }
-
-
