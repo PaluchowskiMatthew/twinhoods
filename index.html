@@ -25,13 +25,15 @@
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
         <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            processEscapes: true
+          },
+          "HTML-CSS": { linebreaks: { automatic: true } },
+                  SVG: { linebreaks: { automatic: true } }
+        });
+        </script>
 
 <script type="text/javascript"
     src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -171,20 +173,36 @@
             and a corresponding target neighborhood with descriptor $\vec n_j^B$
             in the target city $B$ by mapping to the closest descriptor
             in the target city as follows:
+            <div class="formula">
             $$ \| \vec n_i^A - \vec n_j^B \|^2 \leq  \| \vec n_i^A - \vec n_k^B \|^2  \quad \forall k \neq j $$
+            </div>
+            <div class="lead">
             By expanding the above formula we can show that maximizing the dot
             product between neighborhood descriptors will actually result in the
             closest match for neighborhood $n_i$,
+            </div>
+            <div class="formula">
             $$ (\vec n_i^A)^2 - 2 (\vec n_i^A)^T \vec n_j^B + (\vec n_j^B)^2  \leq  (\vec n_i^A)^2 - 2 (\vec n_i^A)^T \vec n_k^B + (\vec n_k^B)^2  $$
+            </div>
+            <div class="lead">
             Since we have normalized the descriptor vectors above we have
-            $ (\vec n_i^A)^2 = (\vec n_j^B)^2 = (\vec n_k^B)^2 = 1 \quad \forall i,j,k$ which leads to
+            </div>
+            <div class="formula">
+            $$ (\vec n_i^A)^2 = (\vec n_j^B)^2 = (\vec n_k^B)^2 = 1 \quad \forall i,j,k$$
             $$ - 2 (\vec n_i^A)^T \vec n_j^B \leq - 2 (\vec n_i^A)^T \vec n_k^B  $$
+            </div>
+            <div class="lead">
             Dividing the above inequation by $-2$ including the corresponding
             flip to the inequality sign results in
+            </div>
+            <div class="formula">
             $$ (\vec n_i^A)^T \vec n_j^B \geq (\vec n_i^A)^T \vec n_k^B  $$
+            </div>
+            <div class="lead">
             This shows that the closest neighborhood can be found be finding
             the maximal dot product between the chosen origin neighborhood
             descriptor and the set of target neighborhood descriptors $\vec n_j^B$.</p>
+            </div>
         </div>
         <div class="col-sm-4">
           <img class="featurette-image img-responsive" data-src="" alt="Matching" src="img/Node-256.png" data-holder-rendered="true">
